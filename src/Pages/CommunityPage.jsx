@@ -31,21 +31,21 @@ const CommunityPage = () => {
         <div className="trendingSection px-10">
             <h2 className="text-3xl mt-6 font-semibold">Trending</h2>
             <div className="trendingBoxSection flex gap-4 text-white mt-4">
-                <div className="trendingBoxOne w-1/3 bg-navBlue p-4 rounded-xl">
+                <Link to="/blog" className="trendingBoxOne w-1/3 bg-navBlue p-4 rounded-xl">
                     <img src={img5} alt="Two men"/>
                     <img src={img4} alt="" className="mt-2 pt-2"/>
                     <p className="py-2">The Impact of Technology on the Workplace: How Technology is Changing</p>
-                </div>
-                <div className="trendingBoxOne w-1/3 bg-navBlue p-4 rounded-xl">
+                </Link>
+                <Link to="/blog" className="trendingBoxOne w-1/3 bg-navBlue p-4 rounded-xl">
                     <img src={img6} alt="Two men"/>
                     <img src={img4} alt="" className="mt-2 pt-2"/>
                     <p className="py-2">The Impact of Technology on the Workplace: How Technology is Changing</p>
-                </div>
-                <div className="trendingBoxOne w-1/3 bg-navBlue p-4 rounded-xl">
+                </Link>
+                <Link to="/blog" className="trendingBoxOne w-1/3 bg-navBlue p-4 rounded-xl">
                     <img src={img7} alt="Two men"/>
                     <img src={img4} alt="" className="mt-2 pt-2"/>
                     <p className="py-2">The Impact of Technology on the Workplace: How Technology is Changing</p>
-                </div>
+                </Link>
             </div>
         </div>
 
