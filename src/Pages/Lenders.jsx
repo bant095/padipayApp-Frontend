@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const Lenders = () => {
-  return (
+  return(
     <div>
       {/* Navigation */}
       <header />
