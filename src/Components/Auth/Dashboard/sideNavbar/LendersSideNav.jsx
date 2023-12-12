@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Select, MenuItem } from '@mui/material';
 
 const LendersSideNav = () => {
+  const user = JSON.parse(localStorage.getItem("user"))
+  console.log(user)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(!user){
+      navigate("/login")
+    }
+  },[])
+
   const [accountType, setAccountType] = useState('borrower');
 
   const toggleAccountChange = (event) => {
@@ -55,7 +66,8 @@ const LendersSideNav = () => {
             </svg>
             <span>
               {accountType === 'borrower'
-                ? 'Alfred Jimoh'
+                ?   `
+                <span className='font-bold'>{}</span> `
                 : 'Switch to a Borrower'}
             </span>
           </p>
@@ -83,7 +95,10 @@ const LendersSideNav = () => {
           className='cursor-pointer'
           style={{ display: 'none' }}
         >
-          <MenuItem value='borrower'>Alfred Jimoh</MenuItem>
+          <MenuItem value='borrower'>
+            {/* APPLICATION OF USER'S NAME TO SHOW ON DASHBOARD */}
+          <span className='font-bold'>{user && user.user.firstName}</span> 
+          </MenuItem>
           <MenuItem value='switch'>Switch to a Borrower</MenuItem>
         </Select>
         {/* <Link to='/'>Change Account Type</Link> */}
