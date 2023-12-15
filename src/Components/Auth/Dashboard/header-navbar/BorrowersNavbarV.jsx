@@ -1,22 +1,8 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import Button from '../../../Button';
 
-<<<<<<< HEAD:src/Components/Auth/Dashboard/header-navbar/BorrowersNavbarV.jsx
 const BorrowersNavbarV = ({ user, loading }) => {
-=======
-const BorrowersNavbar = () => {
-  // FUNCTIONALITY FOR USER NAME TO SHOW ON DASHBOARD
-  const user = JSON.parse(localStorage.getItem("user"))
-  console.log(user)
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if(!user){
-      navigate("/login")
-    }
-  },[])
->>>>>>> 96fa84f375af2d438cd046ca4ca84609eb2f91b2:src/Components/Auth/Dashboard/headerNavBar/BorrowersNavbar.jsx
   return (
     <main className='w-full mX-8 font-primaryFont flex flex-col pr-12'>
       {/* LEFT CONTENT */}
@@ -119,24 +105,13 @@ const BorrowersNavbar = () => {
 
       {/*(SECTION MIDDLE) Card */}
       <section className='p-5 flex w-full justify-between items-center'>
-        <h3 className=' text-xl'>
-<<<<<<< HEAD:src/Components/Auth/Dashboard/header-navbar/BorrowersNavbarV.jsx
-<<<<<<< HEAD:src/Components/Auth/Dashboard/header-navbar/BorrowersNavbarV.jsx
-          {loading ? (
-            'loading...'
-          ) : (
-            <>
-              {user.firstName} {user.lastName}
-            </>
-          )}
-=======
-=======
-          {/* APPLICATION OF USER'S NAME TO SHOW ON DASHBOARD */}
->>>>>>> 184c7c47226dffb067448114a8d3150e7930bc0d:src/Components/Auth/Dashboard/headerNavBar/BorrowersNavbar.jsx
-          <span className='font-bold'>{user && user.user.firstName}</span> {user && user.user.lastName}
-          {/* <span className='font-bold'></span> */}
->>>>>>> 96fa84f375af2d438cd046ca4ca84609eb2f91b2:src/Components/Auth/Dashboard/headerNavBar/BorrowersNavbar.jsx
-        </h3>
+        {loading ? (
+          'loading...'
+        ) : (
+          <h3 className=' text-xl'>
+            {user?.firstName} {user?.lastName}
+          </h3>
+        )}
         {/* Account ID */}
         <p>
           <span class='text-primary'>Account ID:</span> PDWR300
