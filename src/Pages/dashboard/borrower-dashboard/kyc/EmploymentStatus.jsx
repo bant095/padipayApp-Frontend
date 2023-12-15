@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import KycSidebar from "../../../../Components/Auth/Dashboard/KycSidebar";
-import { useNavigate } from "react-router-dom/dist";
-import cogoToast from "cogo-toast";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import KycSidebar from '../../../../Components/Auth/Dashboard/KycSidebar';
+import { useNavigate } from 'react-router-dom/dist';
+import cogoToast from 'cogo-toast';
+import axios from 'axios';
 
 const initialState = {
-  employmentStatus: "",
-  profession: "",
-  placeOfWork: "",
-  addressOfWork: "",
-  emailAddress: "",
-  sector: "",
-  firstJobYear: "",
+  employmentStatus: '',
+  profession: '',
+  placeOfWork: '',
+  addressOfWork: '',
+  emailAddress: '',
+  sector: '',
+  firstJobYear: '',
 };
 
 const EmploymentStatus = () => {
@@ -24,8 +24,8 @@ const EmploymentStatus = () => {
   // get data
   useEffect(() => {
     // get token from local storage
-    const token = JSON.parse(localStorage.getItem("token"));
-    const user = JSON.parse(localStorage.getItem("user"));
+    const token = JSON.parse(localStorage.getItem('token'));
+    const user = JSON.parse(localStorage.getItem('user'));
 
     setToken(token);
     setUser(user);
@@ -51,7 +51,7 @@ const EmploymentStatus = () => {
       !values.sector ||
       !values.firstJobYear
     ) {
-      cogoToast.error("Please fill all inputs");
+      cogoToast.error('Please fill all inputs');
       return;
     }
 
@@ -59,19 +59,19 @@ const EmploymentStatus = () => {
 
     const payload = {
       userId: user?.id,
-      employmentStatus: "Employed",
-      currentProfession: "Software Engineer",
-      currentPlaceOfWork: "Tiidelab",
-      placeOfWorkAddress: "Abuja",
-      workEmailAddress: "samson@tiidelab.com",
-      companySector: "Fintech",
-      firstJobStartDate: "2023-11-07",
+      employmentStatus: 'Employed',
+      currentProfession: 'Software Engineer',
+      currentPlaceOfWork: 'Tiidelab',
+      placeOfWorkAddress: 'Abuja',
+      workEmailAddress: 'samson@tiidelab.com',
+      companySector: 'Fintech',
+      firstJobStartDate: '2023-11-07',
     };
 
     setTimeout(() => {
-      cogoToast.success("Information saved successfully");
+      cogoToast.success('Information saved successfully');
       setLoading(false);
-      navigate("/nextofkin");
+      navigate('/nextofkin');
     }, 2000);
 
     // if (token) {
@@ -98,155 +98,155 @@ const EmploymentStatus = () => {
   };
 
   return (
-    <main className="bg-[#003399] px-20 pt-20 pb-56">
-      <div className="flex justify-around gap-2 small-screen">
+    <main className='bg-[#003399] px-20 pt-20 pb-56'>
+      <div className='flex justify-around gap-2 small-screen'>
         {/* Left Side */}
         <KycSidebar />
 
         {/* -------------------------------------------------- */}
         {/* Right side */}
-        <div className=" bg-white w-screen my-10 px-16 py-8">
-          <h1 className="text-2xl font-bold">Employment Status</h1>
-          <div className="relative my-6">
-            <label htmlFor="employmentStatus">
+        <div className=' bg-white w-screen my-10 px-16 py-8'>
+          <h1 className='text-2xl font-bold'>Employment Status</h1>
+          <div className='relative my-6'>
+            <label htmlFor='employmentStatus'>
               What’s your current employment status?:
             </label>
             <select
-              name="employmentStatus"
-              id="employmentStatus"
-              className="border-2 rounded-[10px] border-lowergrey bg-[#F0F0F0] px-4 w-full py-3"
+              name='employmentStatus'
+              id='employmentStatus'
+              className='border-2 rounded-[10px] border-lowergrey bg-[#F0F0F0] px-4 w-full py-3'
               required
-              tabIndex=""
+              tabIndex=''
               value={values.employmentStatus}
               onChange={handleChange}
             >
-              <option value="default">Select Default</option>
-              <option value="unemployed">Unemployed</option>
-              <option value="civilServant">Civil Servant</option>
-              <option value="businessOwner">Business Owner</option>
-              <option value="investor">Investor</option>
+              <option value='default'>Select Default</option>
+              <option value='unemployed'>Unemployed</option>
+              <option value='civilServant'>Civil Servant</option>
+              <option value='businessOwner'>Business Owner</option>
+              <option value='investor'>Investor</option>
             </select>
           </div>
 
-          <div className="relative my-6">
-            <label htmlFor="profession">What’s your current profession?:</label>
+          <div className='relative my-6'>
+            <label htmlFor='profession'>What’s your current profession?:</label>
             <select
-              name="profession"
-              id="profession"
-              className="border-2 rounded-[10px] border-lowergrey bg-[#F0F0F0] px-4 w-full py-3"
+              name='profession'
+              id='profession'
+              className='border-2 rounded-[10px] border-lowergrey bg-[#F0F0F0] px-4 w-full py-3'
               required
-              tabIndex=""
+              tabIndex=''
               value={values.profession}
               onChange={handleChange}
             >
-              <option value="default">Select Default</option>
-              <option value="unemployed">Unemployed</option>
-              <option value="civilServant">Civil Servant</option>
-              <option value="businessOwner">Business Owner</option>
-              <option value="investor">Investor</option>
+              <option value='default'>Select Default</option>
+              <option value='unemployed'>Unemployed</option>
+              <option value='civilServant'>Civil Servant</option>
+              <option value='businessOwner'>Business Owner</option>
+              <option value='investor'>Investor</option>
             </select>
           </div>
 
-          <div className="relative my-6">
-            <label htmlFor="placeOfWork">
+          <div className='relative my-6'>
+            <label htmlFor='placeOfWork'>
               What’s the name of your current place of work?:
             </label>
             <input
-              type="text"
-              id="placeOfWork"
-              name="placeOfWork"
-              className="border-2 rounded-[10px] border-lowergrey bg-[#F0F0F0] px-4 w-full py-3"
+              type='text'
+              id='placeOfWork'
+              name='placeOfWork'
+              className='border-2 rounded-[10px] border-lowergrey bg-[#F0F0F0] px-4 w-full py-3'
               required
-              tabIndex="4"
+              tabIndex='4'
               value={values.placeOfWork}
               onChange={handleChange}
             />
           </div>
 
-          <div className="relative my-6">
-            <label htmlFor="addressOfWork">
+          <div className='relative my-6'>
+            <label htmlFor='addressOfWork'>
               What is the address of your current place of work?:
             </label>
             <input
-              type="text"
-              id="addressOfWork"
-              name="addressOfWork"
-              className="border-2 rounded-[10px] border-lowergrey bg-[#F0F0F0] px-4 w-full py-3"
+              type='text'
+              id='addressOfWork'
+              name='addressOfWork'
+              className='border-2 rounded-[10px] border-lowergrey bg-[#F0F0F0] px-4 w-full py-3'
               required
-              tabIndex="4"
+              tabIndex='4'
               value={values.addressOfWork}
               onChange={handleChange}
             />
           </div>
 
-          <div className="relative my-6">
-            <label htmlFor="emailAddress">
+          <div className='relative my-6'>
+            <label htmlFor='emailAddress'>
               What is your work email address?:
             </label>
             <input
-              type="email"
-              id="emailAddress"
-              name="emailAddress"
-              className="border-2 rounded-[10px] border-lowergrey bg-[#F0F0F0] px-4 w-full py-3"
+              type='email'
+              id='emailAddress'
+              name='emailAddress'
+              className='border-2 rounded-[10px] border-lowergrey bg-[#F0F0F0] px-4 w-full py-3'
               required
-              tabIndex="4"
+              tabIndex='4'
               value={values.emailAddress}
               onChange={handleChange}
             />
           </div>
 
-          <div className="relative my-6">
-            <label htmlFor="sector">
+          <div className='relative my-6'>
+            <label htmlFor='sector'>
               What sector of the economy is your company?:
             </label>
             <select
-              name="sector"
-              id="sector"
-              className="border-2 rounded-[10px] border-lowergrey bg-[#F0F0F0] px-4 w-full py-3"
+              name='sector'
+              id='sector'
+              className='border-2 rounded-[10px] border-lowergrey bg-[#F0F0F0] px-4 w-full py-3'
               required
-              tabIndex=""
+              tabIndex=''
               value={values.sector}
               onChange={handleChange}
             >
-              <option value="default">Select Default</option>
-              <option value="unemployed">Unemployed</option>
-              <option value="civilServant">Civil Servant</option>
-              <option value="businessOwner">Business Owner</option>
-              <option value="investor">Investor</option>
+              <option value='default'>Select Default</option>
+              <option value='unemployed'>Unemployed</option>
+              <option value='civilServant'>Civil Servant</option>
+              <option value='businessOwner'>Business Owner</option>
+              <option value='investor'>Investor</option>
             </select>
           </div>
 
-          <div className="relative my-6">
-            <label htmlFor="firstJobYear">
+          <div className='relative my-6'>
+            <label htmlFor='firstJobYear'>
               When did you start your first job?:
             </label>
             <select
-              name="firstJobYear"
-              id="firstJobYear"
-              className="border-2 rounded-[10px] border-lowergrey bg-[#F0F0F0] px-4 w-full py-3"
+              name='firstJobYear'
+              id='firstJobYear'
+              className='border-2 rounded-[10px] border-lowergrey bg-[#F0F0F0] px-4 w-full py-3'
               required
-              tabIndex=""
+              tabIndex=''
               value={values.firstJobYear}
               onChange={handleChange}
             >
-              <option value="default">Select Default</option>
-              <option value="unemployed">Unemployed</option>
-              <option value="civilServant">Civil Servant</option>
-              <option value="businessOwner">Business Owner</option>
-              <option value="investor">Investor</option>
+              <option value='default'>Select Default</option>
+              <option value='unemployed'>Unemployed</option>
+              <option value='civilServant'>Civil Servant</option>
+              <option value='businessOwner'>Business Owner</option>
+              <option value='investor'>Investor</option>
             </select>
           </div>
 
-          <div className="flex gap-4">
+          <div className='flex gap-4'>
             <button
-              className="proceed-button bg-[#003399] text-white px-5 py-2 rounded-[10px] cursor-pointer"
+              className='proceed-button bg-[#003399] text-white px-5 py-2 rounded-[10px] cursor-pointer'
               onClick={handleSubmit}
             >
-              {loading ? "loading..." : "Proceed"}
+              {loading ? 'loading...' : 'Proceed'}
             </button>
 
             <button
-              className="border-2 border-primary text-primary px-5 py-2 rounded-[10px] cursor-pointer"
+              className='border-2 border-primary text-primary px-5 py-2 rounded-[10px] cursor-pointer'
               onClick={() => navigate(-1)}
             >
               Back

@@ -52,7 +52,7 @@ const BorrowerSectionFour = () => {
                     <p className='text-xl'>₦500,000</p>
                   </div>
                 </div>
-                <Link to='/lendersDashboard'>
+                <Link to='/borrowersDashboard2'>
                   <button className='mt-5 mb-10 block mx-auto outline-none border-none rounded bg-gray-300 text-black text-center text-sm font-normal py-2 px-4'>
                     Match with Lender
                   </button>
