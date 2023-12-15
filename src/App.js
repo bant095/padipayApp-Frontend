@@ -22,6 +22,9 @@ import PrivacyPolicyPage from './Pages/PrivacyPolicyPage';
 import Calculator from './Components/calculator/Calculator';
 import GuarantorsAgreementPage from './Pages/GuarantorsAgreementPage';
 import SettingsPage from './Pages/SettingsPage';
+import Kyc from './Pages/Kyc'
+import ForgotPassword from './Pages/ForgotPassword'
+import VerifyPassword from './Pages/VerifyPassword'
 
 // import MobileStore from './Components/Sections/MobileStore';
 
@@ -41,10 +44,13 @@ import LendersDashboardFour from './Pages/dashboard/lender-dashboard/LendersDash
 import LendersDashboardFive from './Pages/dashboard/lender-dashboard/LendersDashboardFive';
 import LendersDashboardSix from './Pages/dashboard/lender-dashboard/LendersDashboardSix';
 
+
+import Lenders from './Pages/Lenders';
 import AdminDashboard from './Pages/dashboard/admin-dashboard/AdminDashboard';
-import AdminDashboard3 from './Pages/dashboard/admin-dashboard/AdminDashboard3';
+// import AdminDashboard3 from './Pages/dashboard/admin-dashboard/AdminDashboard3';
 import AdminDashboardInvestment from './Pages/dashboard/admin-dashboard/AdminDashboardInvestment';
 import AdminDashboardLoans from './Pages/dashboard/admin-dashboard/AdminDashboardLoans';
+
 
 import NonInterestDashboard from './Pages/dashboard/non-interest-dashboard/NonInterestDashboard';
 import DeviceFinanceForm from './Pages/dashboard/non-interest-dashboard/DeviceFinanceForm';
@@ -66,6 +72,7 @@ import TermsOfUse from './Pages/dashboard/borrower-dashboard/kyc/TermsOfUse';
 import SettingPage from './Pages/dashboard/SettingPage';
 
 function App() {
+  const baseUrl = "https://padipay-backend.onrender.com/v1/";
   return (
     <BrowserRouter>
       {/* <PadiLogo /> */}
@@ -77,8 +84,8 @@ function App() {
         <Route path='/about-us' element={<AboutPage />} />
         <Route path='/contact' element={<ContactUs />} />
         <Route path='/what-we-do' element={<WhatwedoPage />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/signup' element={<SignupPage />} />
+        <Route path='/login' element={<LoginPage baseUrl={baseUrl}/>} />
+        <Route path='/signup' element={<SignupPage baseUrl={baseUrl} />} />
         <Route path='/community' element={<CommunityPage />} />
         <Route path='/blog' element={<BlogPage />} />
         <Route path='/post-for-blog' element={<PostForBlog />} />
@@ -91,6 +98,9 @@ function App() {
         <Route path='/' element={<LandingPage />} />
         <Route path='/calculator' element={<Calculator />} />
         <Route path='/settings' element={<SettingsPage />} />
+        <Route path='/blog' element={<BlogPage />} />
+        <Route path='/verifypassword' element={<VerifyPassword />} />
+        <Route path='/forgotpassword' element={<ForgotPassword />} />
 
         <Route path='/borrowersDashboard' element={<BorrowerDashboard />} />
         <Route path='/borrowersDashboard2' element={<BorrowerSectionTwo />} />
@@ -117,7 +127,10 @@ function App() {
         {/* ADMIN ROUTER */}
         <Route path='/adminDashboard' element={<AdminDashboard />} />
         <Route path='/adminDashboardLoans' element={<AdminDashboardLoans />} />
-        <Route path='/adminDashboard3' element={<AdminDashboard3 />} />
+        {/* <Route path='/adminDashboard3' element={<AdminDashboard3 />} /> */}
+
+        <Route path='/lenders' element={<Lenders />} />
+
         <Route
           path='/adminDashboardInvestment'
           element={<AdminDashboardInvestment />}
@@ -152,8 +165,10 @@ function App() {
           element={<NonInterestDashboard />}
         />
         <Route path='/DeviceFinanceForm' element={<DeviceFinanceForm />} />
+        <Route path ='/kyc' element={<Kyc/>}/>
       </Routes>
       {/* <Footer /> */}
+      
     </BrowserRouter>
   );
 }

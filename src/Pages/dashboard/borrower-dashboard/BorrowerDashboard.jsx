@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import BarGraph from '../../../Components/graph/BarGraph';
 import LineGraph from '../../../Components/graph/LineGraph';
@@ -27,6 +28,7 @@ const BorrowerDashboard = () => {
   }, []);
 
   //
+
   return (
     <div className='flex'>
       <BorrowersSideNav user={user} loading={loading} />
@@ -91,3 +93,4 @@ const BorrowerDashboard = () => {
 };
 
 export default BorrowerDashboard;
+
