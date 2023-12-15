@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import Button from '../../../Components/Button';
@@ -14,7 +15,7 @@ const BorrowerSectionSix = () => {
   useEffect(() => {
     const response = JSON.parse(localStorage.getItem('user'));
     const token = JSON.parse(localStorage.getItem('token'));
-
+    //token
     if (!token) {
       navigate('/login');
       return;
@@ -124,3 +125,4 @@ const BorrowerSectionSix = () => {
 };
 
 export default BorrowerSectionSix;
+
