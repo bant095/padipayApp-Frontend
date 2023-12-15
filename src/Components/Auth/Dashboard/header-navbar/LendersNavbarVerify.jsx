@@ -1,24 +1,8 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import Button from '../../../Button';
 
-<<<<<<< HEAD:src/Components/Auth/Dashboard/header-navbar/LendersNavbarVerify.jsx
 const LendersNavbarVerify = ({ user, loading }) => {
-=======
-const LendersNavbarVerify = () => {
-  // FUNCTIONALITY FOR USER NAME TO SHOW ON DASHBOARD
-  const user = JSON.parse(localStorage.getItem("user"))
-  console.log(user)
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if(!user){
-      navigate("/login")
-    }
-  },[])
-
-
->>>>>>> 184c7c47226dffb067448114a8d3150e7930bc0d:src/Components/Auth/Dashboard/headerNavBar/LendersNavbarVerify.jsx
   return (
     <main className='w-full mX-8 font-primaryFont flex flex-col '>
       {/* LEFT CONTENT */}
@@ -122,7 +106,6 @@ const LendersNavbarVerify = () => {
       {/*(SECTION MIDDLE) Card */}
       <section className='p-5 flex w-full justify-between items-center'>
         <h3 className=' text-xl'>
-<<<<<<< HEAD:src/Components/Auth/Dashboard/header-navbar/LendersNavbarVerify.jsx
           {loading ? (
             'loading...'
           ) : (
@@ -130,10 +113,6 @@ const LendersNavbarVerify = () => {
               {user.firstName} {user.lastName}
             </>
           )}
-=======
-          {/* APPLICATION OF USER'S NAME TO SHOW ON DASHBOARD */}
-          <span className='font-bold'>{user && user.user.firstName}</span> {user && user.user.lastName}
->>>>>>> 184c7c47226dffb067448114a8d3150e7930bc0d:src/Components/Auth/Dashboard/headerNavBar/LendersNavbarVerify.jsx
         </h3>
         {/* Account ID */}
         <p>

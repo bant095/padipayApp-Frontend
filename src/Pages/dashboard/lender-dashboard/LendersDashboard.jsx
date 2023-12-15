@@ -1,8 +1,7 @@
-
 import React, { useEffect, useState } from 'react';
-// import { Link } from 'react-router-dom';
-import LendersSideNav from '../../../Components/Auth/Dashboard/sideNavbar/LendersSideNav';
-import LendersNavbar from '../../../Components/Auth/Dashboard/headerNavBar/LendersNavbar';
+import { Link } from 'react-router-dom';
+import LendersSideNav from '../../../Components/Auth/Dashboard/side-navbar/LendersSideNav';
+import LendersNavbar from '../../../Components/Auth/Dashboard/header-navbar/LendersNavbar';
 import LineGraph from '../../../Components/graph/LineGraph';
 import { MdAccessTime } from 'react-icons/md';
 import Uploader from '../../../Components/Sections/upload/Uploader';

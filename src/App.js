@@ -22,9 +22,8 @@ import PrivacyPolicyPage from './Pages/PrivacyPolicyPage';
 import Calculator from './Components/calculator/Calculator';
 import GuarantorsAgreementPage from './Pages/GuarantorsAgreementPage';
 import SettingsPage from './Pages/SettingsPage';
-import Kyc from './Pages/Kyc'
-import ForgotPassword from './Pages/ForgotPassword'
-import VerifyPassword from './Pages/VerifyPassword'
+import ForgotPassword from './Pages/ForgotPassword';
+import VerifyPassword from './Pages/VerifyPassword';
 
 // import MobileStore from './Components/Sections/MobileStore';
 
@@ -44,13 +43,11 @@ import LendersDashboardFour from './Pages/dashboard/lender-dashboard/LendersDash
 import LendersDashboardFive from './Pages/dashboard/lender-dashboard/LendersDashboardFive';
 import LendersDashboardSix from './Pages/dashboard/lender-dashboard/LendersDashboardSix';
 
-
 import Lenders from './Pages/Lenders';
 import AdminDashboard from './Pages/dashboard/admin-dashboard/AdminDashboard';
 // import AdminDashboard3 from './Pages/dashboard/admin-dashboard/AdminDashboard3';
 import AdminDashboardInvestment from './Pages/dashboard/admin-dashboard/AdminDashboardInvestment';
 import AdminDashboardLoans from './Pages/dashboard/admin-dashboard/AdminDashboardLoans';
-
 
 import NonInterestDashboard from './Pages/dashboard/non-interest-dashboard/NonInterestDashboard';
 import DeviceFinanceForm from './Pages/dashboard/non-interest-dashboard/DeviceFinanceForm';
@@ -62,6 +59,7 @@ import UsersLender from './Pages/dashboard/admin-dashboard/admin-users/UsersLend
 import UsersBorrower from './Pages/dashboard/admin-dashboard/admin-users/UsersBorrower';
 import AdminWithdrawal from './Pages/dashboard/admin-dashboard/AdminWithdrawal';
 import AdminTransactions from './Pages/dashboard/admin-dashboard/AdminTransactions';
+
 import AccountDetails from './Pages/dashboard/borrower-dashboard/kyc/AccountDetails';
 import DigitPin from './Pages/dashboard/borrower-dashboard/kyc/DigitPin';
 import EmploymentStatus from './Pages/dashboard/borrower-dashboard/kyc/EmploymentStatus';
@@ -69,10 +67,11 @@ import Kyc from './Pages/dashboard/borrower-dashboard/Kyc';
 import NextOfKin from './Pages/dashboard/borrower-dashboard/kyc/NextOfKin';
 import PersonalDetails from './Pages/dashboard/borrower-dashboard/kyc/PersonalDetails';
 import TermsOfUse from './Pages/dashboard/borrower-dashboard/kyc/TermsOfUse';
+
 import SettingPage from './Pages/dashboard/SettingPage';
 
 function App() {
-  const baseUrl = "https://padipay-backend.onrender.com/v1/";
+  const baseUrl = 'https://padipay-backend.onrender.com/v1/';
   return (
     <BrowserRouter>
       {/* <PadiLogo /> */}
@@ -84,7 +83,7 @@ function App() {
         <Route path='/about-us' element={<AboutPage />} />
         <Route path='/contact' element={<ContactUs />} />
         <Route path='/what-we-do' element={<WhatwedoPage />} />
-        <Route path='/login' element={<LoginPage baseUrl={baseUrl}/>} />
+        <Route path='/login' element={<LoginPage baseUrl={baseUrl} />} />
         <Route path='/signup' element={<SignupPage baseUrl={baseUrl} />} />
         <Route path='/community' element={<CommunityPage />} />
         <Route path='/blog' element={<BlogPage />} />
@@ -165,10 +164,8 @@ function App() {
           element={<NonInterestDashboard />}
         />
         <Route path='/DeviceFinanceForm' element={<DeviceFinanceForm />} />
-        <Route path ='/kyc' element={<Kyc/>}/>
       </Routes>
       {/* <Footer /> */}
-      
     </BrowserRouter>
   );
 }
