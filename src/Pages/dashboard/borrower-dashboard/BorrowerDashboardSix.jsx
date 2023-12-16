@@ -6,8 +6,14 @@ import { Link } from 'react-router-dom';
 import BorrowersSideNav from '../../../Components/Auth/Dashboard/side-navbar/BorrowersSideNav';
 import FooterDashboard from '../../../Components/Auth/Dashboard/FooterDashboard';
 import { useNavigate } from 'react-router-dom/dist';
+import axios from 'axios';
+// import cogoToast from 'cogo-toast';
 
 const BorrowerSectionSix = () => {
+  const [loanAmount, setLoanAmount] = useState('');
+  const [interestRate, setInterestRate] = useState('');
+  const [loanDuration, setLoanDuration] = useState('');
+  const [pin, setPin] = useState('');
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -15,7 +21,7 @@ const BorrowerSectionSix = () => {
   useEffect(() => {
     const response = JSON.parse(localStorage.getItem('user'));
     const token = JSON.parse(localStorage.getItem('token'));
-    //token
+
     if (!token) {
       navigate('/login');
       return;
@@ -24,7 +30,25 @@ const BorrowerSectionSix = () => {
     setLoading(false);
   }, []);
 
-  //
+  const handleGetLoan = async () => {
+    try {
+      const apiUrl = `https://padipay-backend.onrender.com/v1/borrower/create-loan`; // Replace with your actual API endpoint
+      const requestBody = {
+        loanAmount: loanAmount,
+        loanTerm: parseInt(loanDuration),
+        pin: parseInt(pin)
+      };
+
+      const response = await axios.post(apiUrl, requestBody);
+      console.log('API Response:', response.data);
+
+      // Handle the API response as needed
+    } catch (error) {
+      console.error('Error calling API:', error);
+      // Handle errors
+    }
+  };
+  
   return (
     <div className='flex'>
       <BorrowersSideNav user={user} loading={loading} />
@@ -71,6 +95,8 @@ const BorrowerSectionSix = () => {
                   variant='outlined'
                   id='number'
                   type='number'
+                  value={loanAmount}
+                  onChange={(e) => setLoanAmount(e.target.value)}
                 />
 
                 <div className='flex gap-4 my-6'>
@@ -82,6 +108,8 @@ const BorrowerSectionSix = () => {
                       type='number'
                       name=''
                       id=''
+                      value={interestRate}
+                      onChange={(e) => setInterestRate(e.target.value)}
                       className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500'
                     />
                   </div>
@@ -93,6 +121,8 @@ const BorrowerSectionSix = () => {
                       type='number'
                       name=''
                       id=''
+                      value={loanDuration}
+                      onChange={(e) => setLoanDuration(e.target.value)}
                       className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500'
                     />
                   </div>
@@ -105,14 +135,17 @@ const BorrowerSectionSix = () => {
                   type='number'
                   name=''
                   id=''
+                  value={pin}
+                  onChange={(e) => setPin(e.target.value)}
                   className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500'
                 />
                 <Link to='/borrowersDashboard4'>
-                  <Button
-                    className='bg-blue block  rounded-xl text-white w-80 mx-auto py-2 mt-12'
-                    text='Get Loan'
-                  />
-                </Link>
+        <Button
+          className='bg-blue block  rounded-xl text-white w-80 mx-auto py-2 mt-12'
+          text='Get Loan'
+          onClick={handleGetLoan}
+        />
+      </Link>
               </div>
             </div>
           </div>
