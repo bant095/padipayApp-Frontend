@@ -1,84 +1,84 @@
-import {useState, useEffect} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import LeftPartLogin from '../Components/LeftPartLogin';
-import { TextField, CircularProgress } from '@mui/material';
-import Box from '@mui/material/Box';
+import { TextField } from '@mui/material';
 import Button from '../Components/Button';
+import axios from 'axios';
+import cogoToast from 'cogo-toast';
+import { useNavigate } from 'react-router-dom';
 
-const LoginPage = ({baseUrl}) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const initialState = {
+  email: '',
+  password: '',
+};
+
+const LoginPage = () => {
+  const [values, setValues] = useState(initialState);
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [rememberMe, setRememberMe] = useState(false)
-  const navigate = useNavigate()
-  const [passwordType, setPasswordType] = useState("password");
+  const navigate = useNavigate();
+  const [authloading, setAuthloading] = useState(true);
 
-  function checkEmail(){
-    const email = JSON.parse(localStorage.getItem('email'))
-    if(email) setEmail(email)
-  }
-  useEffect(() =>{
-    checkEmail()
-  },[])
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = localStorage.getItem('token');
 
-// response part 
-  async function handleSignin(e){
-    e.preventDefault()
-    setLoading(true)
-    console.log(JSON.stringify({email:email, password: password}))
-    const response = await fetch(`${baseUrl}/auth/login`,{
-      method: "POST",
-      headers: {
-        "Content-Type" : "application/json"
-      },
-      body : JSON.stringify({email:email, password: password})
-    })
-    // extract data from response object
-    const data = await response.json()
-    console.log(response, data)
-    if (response) setLoading(false)
-    if (!response.ok) {
-      setErrorMessage(data.message)
-      setTimeout(()=>{
-        setErrorMessage("")
-      },5000)
+    if (token) {
+      navigate(
+        user?.accountType === 1 ? '/borrowersDashboard' : '/lendersDashboard'
+      );
+      return;
     }
-    if (response.ok){
-      localStorage.setItem("user", JSON.stringify(data))
-      if(data.user.accountType === 1){
-        console.log("accounttype")
-        navigate("/borrowersDashboard")
-      }
-      if(data.user.accountType === 2){
-        navigate("/lendersDashboard")
-      }
-    }
-  }
+    setAuthloading(false);
+  }, [navigate]);
 
-  // REMEMBER ME FUNCTIONALITY
-  function rememberMeFunc(e){
-    if(!email){
-      return
-    }else{
-      setRememberMe(!rememberMe)
-      console.log(typeof e.target.value)
-      if(e.target.value === "false"){
-        localStorage.setItem("email", JSON.stringify(email))
-      }
-    }
-  }
+  // handlechange
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  };
 
-   // SHOW PASSWORD FUNCTIONALITY
-   function isChecked(e){
-    console.log(e.target)
-    if (e.target.value === "password"){
-      setPasswordType("text")
-    } if (e.target.value === "text"){
-      setPasswordType("password")
-    }
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    const payload = {
+      email: values.email,
+      password: values.password,
+    };
+
+    try {
+      setLoading(true);
+      const res = await axios.post(
+        'https://padipay-backend.onrender.com/v1/auth/login',
+        payload,
+        {
+          header: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      cogoToast.success('Login Successfully');
+      navigate(
+        res.data.user.accountType === 1
+          ? '/borrowersDashboard'
+          : '/lendersDashboard'
+      );
+      localStorage.setItem('user', JSON.stringify(res.data.user));
+      localStorage.setItem(
+        'token',
+        JSON.stringify(res.data.tokens.access.token)
+      );
+      setLoading(false);
+    } catch (error) {
+      cogoToast.error(error.response.data.message);
+      setLoading(false);
+    }
+  };
+
+  if (authloading) return;
+
+  //
   return (
     <div className='bg-[#003399] text-primaryFont h-full flex flex-col justify-center'>
       <div className='pt-10 flex justify-around gap-2 small-screen'>
@@ -87,11 +87,10 @@ const LoginPage = ({baseUrl}) => {
           <LeftPartLogin />
         </div>
         {/* RIGHT SIDE */}
-        
 
         <div className='bg-white rounded w-screen px-10 m-16 p-8'>
           <div className='text-center'>
-            <h1 className='text-4xl text-primary'>
+            <h1 className='text-4xl'>
               Log in to <span className='font-bold'>Padi</span>Pay
             </h1>
             <p className='text-xl my-8'>
@@ -99,21 +98,17 @@ const LoginPage = ({baseUrl}) => {
               Please login with your details
             </p>
           </div>
-          {/* <button className='border-2 border-black w-full py-2 flex justify-center items-center gap-2 my-8'>
+          <button className='border-2 border-black w-full py-2 flex justify-center items-center gap-2 my-8'>
             <img
               src={'https://ik.imagekit.io/b6b9xwu9l/google-logo.svg'}
               alt='google-play mockup'
               className='w-10'
             />
             <span>Login with Google</span>
-          </button> */}
-
-          {errorMessage && 
-          <p className='text-red-600 text-center '>{errorMessage}</p>
-          }
+          </button>
 
           {/* LOGIN FORM */}
-          <form name='loginForm' onSubmit={handleSignin}>
+          <form onSubmit={handleSubmit}>
             <div className='relative my-6 w-full'>
               <i className='fa-solid fa-envelope absolute px-3.5 py-4 text-2xl'></i>
               <TextField
@@ -122,11 +117,13 @@ const LoginPage = ({baseUrl}) => {
                 variant='outlined'
                 id='lastName'
                 type='email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                />
+                value={values.email}
+                name='email'
+                onChange={handleChange}
+              />
               <br />
             </div>
+
             <div className='relative my-6 w-full'>
               <i className='fa-solid fa-lock absolute px-3.5 py-4 text-2xl'></i>
               <TextField
@@ -134,53 +131,37 @@ const LoginPage = ({baseUrl}) => {
                 label='Password'
                 variant='outlined'
                 id='password'
-                type={passwordType}
-                onChange={e => setPassword(e.target.value)}
-                />
-                <span className=' block  w-full'>
-              <input className='mr-4 my-6'
-                    type='checkbox'
-                    name='terms'
-                    id='terms'
-                    value={passwordType}
-                    onChange={(e) => isChecked(e)}
-                  />
-                  Show password
-              </span>
+                type='password'
+                value={values.password}
+                name='password'
+                onChange={handleChange}
+              />
             </div>
+
             <div className='w-full flex justify-between'>
               <div className='flex items-center gap-1'>
                 <input
                   type='checkbox'
                   name='remember'
                   id='remember'
-                  value={rememberMe}
-                  onChange={e => rememberMeFunc(e)}
+                  value='Remember me'
                 />
                 <span className='text-sm'>Remember me</span>
               </div>
-              <Link to='/forgotpassword' className='text-sm'>
+              <Link to='forgotpassword' className='text-sm'>
                 Forget your password?
               </Link>
             </div>
-           
-            {/* <Link to='/account-type' className='flex justify-center align-middle my-10' size='lg'> */}
-            {loading ?
-            <Box sx={{ display: 'flex' }}>
-              <CircularProgress />
-            </Box>
-            :
+
             <Button
-              text='Login'
-              type = "submit"
-              className='bg-[#003399] text-white  rounded-[10px] cursor-pointer' size="lg"
+              text={loading ? 'loading...' : 'Login'}
+              className='bg-[#003399] text-white  rounded-[10px] cursor-pointer'
+              size='lg'
             />
-            }
-            {/* </Link> */}
           </form>
           <p className='text-xl font-bold text-center'>
             Don't have an account?
-            <Link to='/signup' className='text-red-500 ml-2'>
+            <Link to='/account-type' className='text-red-500 ml-2'>
               Sign up
             </Link>{' '}
             here
@@ -192,3 +173,4 @@ const LoginPage = ({baseUrl}) => {
 };
 
 export default LoginPage;
+

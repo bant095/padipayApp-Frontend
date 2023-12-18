@@ -1,27 +1,35 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import BorrowersSideNav from '../../../Components/Auth/Dashboard/sideNavbar/BorrowersSideNav';
-import BorrowersNavBar from '../../../Components/Auth/Dashboard/headerNavBar/BorrowersNavbarV';
+import BorrowersSideNav from '../../../Components/Auth/Dashboard/side-navbar/BorrowersSideNav';
+import BorrowersNavBar from '../../../Components/Auth/Dashboard/header-navbar/BorrowersNavbarV';
 import Button from '../../../Components/Button';
 import FooterDashboard from '../../../Components/Auth/Dashboard/FooterDashboard';
+import { useNavigate } from 'react-router-dom/dist';
 
 const BorrowerSectionThree = () => {
-  const user = JSON.parse(localStorage.getItem("user"))
-  console.log(user)
-  const navigate = useNavigate()
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if(!user){
-      navigate("/login")
+    const response = JSON.parse(localStorage.getItem('user'));
+    const token = JSON.parse(localStorage.getItem('token'));
+    //token
+    if (!token) {
+      navigate('/login');
+      return;
     }
-  },[])
-
+    setUser(response);
+    setLoading(false);
+  }, []);
+  //
   return (
     <div className='flex'>
-      <BorrowersSideNav />
+      <BorrowersSideNav user={user} loading={loading} />
       <div>
-        <BorrowersNavBar />
+        <BorrowersNavBar user={user} loading={loading} />
+
         <div className='grid grid-cols-3 gap-x-0 gap-y-8'>
           {/* first grid */}
           <d className=' h-90 shadow-lg my-14 rounded-md relative overflow-hidden px-4 '>
@@ -75,7 +83,9 @@ const BorrowerSectionThree = () => {
           </div>
           {/* third grid */}
           <div className=' h-90 pt-12 shadow-lg px-6 my-auto overflow-hidden'>
-            <p className='py-1 mt-8 mb-2 font-semibold text-left text-4xl'>Community?</p>
+            <p className='py-1 mt-8 mb-2 font-semibold text-left text-4xl'>
+              Community?
+            </p>
             <p className='text-xl pt-2 font-light mb-8'>
               Discover our collaborative
               <br /> community, Discover and
@@ -89,10 +99,9 @@ const BorrowerSectionThree = () => {
               />
             </Link>
           </div>
-          </div>
-  {/* SECOND SECTION */}
-  <FooterDashboard />
-        
+        </div>
+        {/* SECOND SECTION */}
+        <FooterDashboard />
       </div>
     </div>
   );

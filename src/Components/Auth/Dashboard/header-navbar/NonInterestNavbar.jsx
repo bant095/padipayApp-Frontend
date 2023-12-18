@@ -1,24 +1,11 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Button from '../../../Button';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const LendersNavbarVerify = () => {
-  // FUNCTIONALITY FOR USER NAME TO SHOW ON DASHBOARD
-  const user = JSON.parse(localStorage.getItem("user"))
-  console.log(user)
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if(!user){
-      navigate("/login")
-    }
-  },[])
-
-
+const NonInterestNavbar = ({ user, loading }) => {
   return (
-    <main className='w-full mX-8 font-primaryFont flex flex-col '>
+    <main className='w-[100%] font-primaryFont flex '>
       {/* LEFT CONTENT */}
-      <header className='p-5 flex justify-between w-full items-center'>
+      <header className='p-5 flex justify-between w-full items-center '>
         <div className=''>
           <div className='flex flex-col '>
             <p className='text-sm flex gap-1 items-center'>
@@ -38,7 +25,7 @@ const LendersNavbarVerify = () => {
               </svg>
               <span className='text-[#878585]'>Dashboard</span> Overview
             </p>
-            <p className='font-bold text-xl text-primary'>Analytics</p>
+            <p className='font-bold text-xl text-primary'>Non Interest</p>
           </div>
         </div>
         {/* RIGHT CONTENT */}
@@ -114,32 +101,8 @@ const LendersNavbarVerify = () => {
           </div>
         </div>
       </header>
-
-      {/*(SECTION MIDDLE) Card */}
-      <section className='p-5 flex w-full justify-between items-center'>
-        <h3 className=' text-xl'>
-          {/* APPLICATION OF USER'S NAME TO SHOW ON DASHBOARD */}
-          <span className='font-bold'>{user && user.user.firstName}</span> {user && user.user.lastName}
-        </h3>
-        {/* Account ID */}
-        <p>
-          <span class='text-primary'>Account ID:</span> PDWR101
-        </p>
-
-        {/* Verified profile */}
-        <p class=' text-primary border px-4 py-1 border-primary rounded'>
-          Verified
-        </p>
-
-        {/* btn */}
-        <div className=' hover:text-md'>
-          <Link to='/signup'>
-            <Button text={'Share Referral Link'} />
-          </Link>
-        </div>
-      </section>
     </main>
   );
 };
 
-export default LendersNavbarVerify;
+export default NonInterestNavbar;

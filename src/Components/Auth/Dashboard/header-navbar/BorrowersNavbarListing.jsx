@@ -1,24 +1,12 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import Button from '../../../Button';
 
-const LendersNavbar = () => {
-  // FUNCTIONALITY FOR USER NAME TO SHOW ON DASHBOARD
-  const user = JSON.parse(localStorage.getItem("user"))
-  console.log(user)
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if(!user){
-      navigate("/login")
-    }
-  },[])
-
-
+const BorrowersNavbarListing = ({ user, loading }) => {
   return (
-    <main className='w-[100%] font-primaryFont flex flex-col '>
+    <main className='w-full mX-8 font-primaryFont flex flex-col '>
       {/* LEFT CONTENT */}
-      <header className='p-5 flex justify-between items-center'>
+      <header className='p-5 flex justify-between w-full items-center'>
         <div className=''>
           <div className='flex flex-col '>
             <p className='text-sm flex gap-1 items-center'>
@@ -116,20 +104,31 @@ const LendersNavbar = () => {
       </header>
 
       {/*(SECTION MIDDLE) Card */}
-      <section className='p-5 flex justify-between items-center'>
+      <section className='p-5 flex w-full justify-between items-center'>
         <h3 className=' text-xl'>
-          {/* APPLICATION OF USER'S NAME TO SHOW ON DASHBOARD */}
-          <span className='font-bold'>{user && user.user.firstName}</span> {user && user.user.lastName}
+          {loading ? (
+            'loading...'
+          ) : (
+            <>
+              {user.firstName} {user.lastName}
+            </>
+          )}
         </h3>
         {/* Account ID */}
         <p>
-          <span class='text-primary'>Account ID:</span> PDWR101
+          <span class='text-primary'>Account ID:</span> PDWR300
         </p>
 
-        {/* Incomplete profile */}
-        <p class=' text-[#FC1616] border px-4 py-1 border-[#FC1616] rounded'>
-          Incomplete Profile
+        {/* Verified profile */}
+        <p class=' text-primary border px-4 py-1 border-primary rounded'>
+          Verified
         </p>
+
+        <div className=' hover:text-md'>
+          <Link to='/signup'>
+            <Button text={'Lender Listing'} />
+          </Link>
+        </div>
 
         {/* btn */}
         <div className=' hover:text-md'>
@@ -142,4 +141,4 @@ const LendersNavbar = () => {
   );
 };
 
-export default LendersNavbar;
+export default BorrowersNavbarListing;

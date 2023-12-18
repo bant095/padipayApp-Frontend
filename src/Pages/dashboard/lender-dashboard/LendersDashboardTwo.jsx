@@ -1,26 +1,41 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import LendersSideNav from '../../../Components/Auth/Dashboard/sideNavbar/LendersSideNav';
-import LendersNavbar from '../../../Components/Auth/Dashboard/headerNavBar/LendersNavbar';
+import LendersSideNav from '../../../Components/Auth/Dashboard/side-navbar/LendersSideNav';
+import LendersNavbar from '../../../Components/Auth/Dashboard/header-navbar/LendersNavbar';
 import Button from '../../../Components/Button';
+import { useNavigate } from 'react-router-dom/dist';
 
 const LendersDashboardTwo = () => {
-  const user = JSON.parse(localStorage.getItem("user"))
-  console.log(user)
-  const navigate = useNavigate()
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const [authloading, setAuthloading] = useState(true);
 
   useEffect(() => {
-    if(!user){
-      navigate("/login")
-    }
-  },[])
+    const response = JSON.parse(localStorage.getItem('user'));
+    const token = localStorage.getItem('token');
 
+    if (!token) {
+      navigate('/login');
+
+      return;
+    }
+    setUser(response);
+    setLoading(false);
+    setAuthloading(false);
+  }, [navigate]);
+
+  if (authloading) {
+    return;
+  }
+
+  //
   return (
     <div className='lg:flex w-full'>
-      <LendersSideNav />
+      <LendersSideNav user={user} loading={loading} />
       <section>
-        <LendersNavbar />
+        <LendersNavbar user={user} loading={loading} />
         <div className='w-[90%] flex items-start justify-start flex-col p-7 text-black bg-white text-left mt-5 mx-4 shadow'>
           <h1 className='text-2xl mb-7 text-primary'>Risk Appetite</h1>
 
@@ -36,10 +51,7 @@ const LendersDashboardTwo = () => {
             className='flex gap-5 flex-col  items-start justify-start text-black'
           >
             {/* 1 */}
-            <label
-              htmlFor=''
-              className='mb-1 flex flex-col gap-2'
-            >
+            <label htmlFor='' className='mb-1 flex flex-col gap-2'>
               How would you rate your risk tolerance
               <select className=' px-2 py-1 border rounded'>
                 <option>Select your option</option>

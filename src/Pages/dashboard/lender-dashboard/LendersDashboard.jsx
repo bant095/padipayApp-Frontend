@@ -1,30 +1,44 @@
-import React, { useEffect } from 'react';
-// import { Link } from 'react-router-dom';
-import LendersSideNav from '../../../Components/Auth/Dashboard/sideNavbar/LendersSideNav';
-import LendersNavbar from '../../../Components/Auth/Dashboard/headerNavBar/LendersNavbar';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import LendersSideNav from '../../../Components/Auth/Dashboard/side-navbar/LendersSideNav';
+import LendersNavbar from '../../../Components/Auth/Dashboard/header-navbar/LendersNavbar';
 import LineGraph from '../../../Components/graph/LineGraph';
 import { MdAccessTime } from 'react-icons/md';
 import Uploader from '../../../Components/Sections/upload/Uploader';
 import FooterDashboard from '../../../Components/Auth/Dashboard/FooterDashboard';
 import BarGraph from '../../../Components/graph/BarGraph';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom/dist';
 
 const LendersDashboard = () => {
-  const user = JSON.parse(localStorage.getItem("user"))
-  console.log(user)
-  const navigate = useNavigate()
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const [authloading, setAuthloading] = useState(true);
 
   useEffect(() => {
-    if(!user){
-      navigate("/login")
-    }
-  },[])
+    const response = JSON.parse(localStorage.getItem('user'));
+    const token = localStorage.getItem('token');
 
+    if (!token) {
+      navigate('/login');
+
+      return;
+    }
+    setUser(response);
+    setLoading(false);
+    setAuthloading(false);
+  }, [navigate]);
+
+  if (authloading) {
+    return;
+  }
+
+  //
   return (
     <div className='lg:flex w-full'>
-      <LendersSideNav />
+      <LendersSideNav user={user} loading={loading} />
       <main>
-        <LendersNavbar />
+        <LendersNavbar user={user} loading={loading} />
 
         <div className='flex justify-between items-center mt-5 gap-3 mx-4'>
           {/* FIRST BOX */}

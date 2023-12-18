@@ -1,112 +1,117 @@
-import {useState} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { TextField, CircularProgress } from '@mui/material';
-import Box from '@mui/material/Box';
+
+import { Link } from 'react-router-dom';
+import { TextField } from '@mui/material';
 import Button from '../Components/Button';
-import SelectAccount from "../Components/SelectAccount";
-import SelectGender from "../Components/SelectGender";
-// import Alert from "../Components/Alert";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import cogoToast from 'cogo-toast';
+import { useNavigate } from 'react-router-dom/dist';
 
-const SignupPage = ({baseUrl}) => {
+const initialState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirm_password: '',
+  gender: '',
+  phone: '',
+  accountType: 0,
+};
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
-  const [accountType, setAccountType] = useState("");
-  const [genderType, setGenderType] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordType, setPasswordType] = useState("password");
-  const [passwordCheck, setPasswordCheck] = useState("password");
+const SignupPage = () => {
+  const [values, setValues] = useState(initialState);
   const [loading, setLoading] = useState(false);
-  const [check, setCheck] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [alertType, setAlertType] = useState("");
+  const navigate = useNavigate();
+  const [terms, setTerms] = useState(null);
+  const [authloading, setAuthloading] = useState(true);
 
-  const navigate = useNavigate()
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = localStorage.getItem('token');
 
-  // response part 
-  async function handleSignup(e){
-    e.preventDefault()
-    console.log(accountType)
-    console.log(check)
-    console.log(JSON.stringify({firstName, lastName, password, confirmPassword, accountType, genderType, phone}))
-    if(!firstName || !lastName || !password || !confirmPassword || !accountType || !genderType || !phone ){
-      setErrorMessage("Fill in all fields")
-      setTimeout(()=>{
-        setErrorMessage("")
-      },5000)
+    if (token) {
+      navigate(
+        user?.accountType === 1 ? '/borrowersDashboard' : '/lendersDashboard'
+      );
       return;
-    }else if(password !== confirmPassword){
-      setErrorMessage("Both passwords field must match")
-      setTimeout(()=>{
-        setErrorMessage("")
-      },5000)
+    }
+    setAuthloading(false);
+  }, [navigate]);
+
+  // handlechange
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  };
+
+  // handle submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (
+      !values.firstName ||
+      !values.lastName ||
+      !values.email ||
+      !values.password ||
+      !values.confirm_password ||
+      !values.phone
+    ) {
+      cogoToast.error('Input cannot be empty');
       return;
-    }else if(check === false){
-      setErrorMessage("Agree to terms and conditions")
-      setTimeout(()=>{
-        setErrorMessage("")
-      },5000)
+    }
+
+    if (values.password !== values.confirm_password) {
+      cogoToast.error('Password should be the same');
       return;
-    }else{
-      
-      setLoading(true)
-      console.log(loading);
-      const response = await fetch(`${baseUrl}/auth/register`,{
-        method: "POST",
-        headers: {
-          "Content-Type" : "application/json"
-        },
-        body : JSON.stringify({firstName, lastName, email, password, accountType, gender:genderType, phone})
-      })
-      // extract data from response object
-      const data = await response.json()
-      console.log(response, data)
-      if (response) setLoading(false)
-      if (!response.ok) {
-        setErrorMessage(data.message)
-        setTimeout(()=>{
-          setErrorMessage("")
-        },5000)
-      }
-      if (response.ok){
-        localStorage.setItem("user", JSON.stringify(data))
-        if(data.user.accountType === 1){
-          console.log("accounttype")
-          navigate("/borrowersDashboard")
+    }
+
+    if (!terms) {
+      cogoToast.error('Accept our terms & condition to continue');
+      return;
+    }
+
+    // get type from local storage
+    const type = localStorage.getItem('type');
+
+    const payload = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      password: values.password,
+      gender: values.gender,
+      phone: values.phone,
+      accountType: type === 'borrower' ? 1 : 2,
+    };
+
+    try {
+      setLoading(true);
+      await axios.post(
+        'https://padipay-backend.onrender.com/v1/auth/register',
+        payload,
+        {
+          header: {
+            'Content-Type': 'application/json',
+          },
         }
-        if(data.user.accountType === 2){
-          navigate("/lendersDashboard")
-        }
-      }
-    }
+      );
+      cogoToast.success('Account Created Successfully');
+      navigate('/login');
 
-  }
-  // SHOW PASSWORD FUNCTIONALITY
-  function isChecked(e){
-    console.log(e.target)
-    if (e.target.value === "password"){
-      setPasswordType("text")
-    } if (e.target.value === "text"){
-      setPasswordType("password")
+      setLoading(false);
+    } catch (error) {
+      cogoToast.error(error.response.data.message);
+      console.log(error);
+      setLoading(false);
     }
-  }
+  };
 
-   function passChecked(e){
-    console.log(e.target)
-    if (e.target.value === "password"){
-      setPasswordCheck("text")
-    } if (e.target.value === "text"){
-      setPasswordCheck("password")
-    }
-  }
+  if (authloading) return;
 
+  //
   return (
     <div className='bg-primary font-primaryFont'>
       <div className=' h-100vw py-6'>
-        <div className='flex justify-around gap-2 small-screen'>
+        <div className='flex gap-2 small-screen'>
           <div className='flex flex-col relative items-center justify-center text-white w-screen'>
             <div className='text-center'>
               <h1 className='text-4xl'>Welcome Onboard</h1>
@@ -144,31 +149,32 @@ const SignupPage = ({baseUrl}) => {
                 Create Your Account<span className='font-bold'></span>
               </h1>
               <p className='text-xl my-4'>
-                Welcome! Please enter your details
+                Welcome! Please enter with your details
               </p>
             </div>
-            {/* <button className='border-2 border-black w-full py-2 flex justify-center items-center gap-2 my-8'>
+
+            <button className='border-2 border-black w-full py-2 flex justify-center items-center gap-2 my-8'>
               <img
                 src={'https://ik.imagekit.io/b6b9xwu9l/google-logo.svg'}
                 alt='google-play mockup'
                 className='w-10'
               />
               <span>Sign up with Google</span>
-            </ button> */}
-            {errorMessage && <p className='text-red-600 text-center h-12'>{errorMessage}</p> }
+            </button>
 
-            
             {/* MAIN BODY - SIGNUP FORM */}
-            <form name='loginForm' onSubmit={handleSignup}>
-              <div className='relative my-2 w-full'>
+            <form onSubmit={handleSubmit}>
+              <div className='relative my-6 w-full'>
                 <i className='fa-solid fa-user absolute px-3.5 py-4 text-2xl'></i>
                 <TextField
-                className='border-2 border-black bg-[#F0F0F0] w-full  py-4'
-                label='Enter Your first Name'
-                variant='outlined'
-                id='firstName'
-                type='text'
-                onChange={e => setFirstName(e.target.value)}
+                  className='border-2 border-black bg-[#F0F0F0] w-full  py-4'
+                  label='Enter Your first Name'
+                  variant='outlined'
+                  id='lastName'
+                  type='text'
+                  value={values.firstName}
+                  onChange={handleChange}
+                  name='firstName'
                 />
                 <br />
               </div>
@@ -176,126 +182,115 @@ const SignupPage = ({baseUrl}) => {
               <div className='relative my-6 w-full'>
                 <i className='fa-solid fa-user absolute px-3.5 py-4 text-2xl'></i>
                 <TextField
-                className='border-2 border-black bg-[#F0F0F0] w-full px-12 py-4'
-                label='Enter Your last Name'
-                variant='outlined'
-                id='lastName'
-                type='text'
-                onChange={e => setLastName(e.target.value)}
+                  className='border-2 border-black bg-[#F0F0F0] w-full px-12 py-4'
+                  label='Enter Your last Name'
+                  variant='outlined'
+                  id='lastName'
+                  type='text'
+                  value={values.lastName}
+                  onChange={handleChange}
+                  name='lastName'
                 />
-                
+
                 <br />
               </div>
 
               <div className='relative my-6 w-full'>
                 <i className='fa-solid fa-envelope absolute px-3.5 py-4 text-2xl'></i>
                 <TextField
-                className='border-2 border-black bg-[#F0F0F0] w-full px-12 py-4'
-                label=' Email Address'
-                variant='outlined'
-                id='lastName'
-                type='email'
-                onChange={e => setEmail(e.target.value)}
+                  className='border-2 border-black bg-[#F0F0F0] w-full px-12 py-4'
+                  label=' Email Address'
+                  variant='outlined'
+                  id='lastName'
+                  type='email'
+                  value={values.email}
+                  onChange={handleChange}
+                  name='email'
                 />
                 <br />
               </div>
-                <div className='relative my-6 w-full'>
-                <TextField
-                className='border-2 border-black bg-[#F0F0F0] w-full px-12 py-4'
-                label='Password'
-                variant='outlined'
-                id='password'
-                type={passwordType}
-                onChange={e => setPassword(e.target.value)}
-                />
-              </div>
-              <span className=' block  w-full'>
-              <input className='mr-4'
-                    type='checkbox'
-                    name='terms'
-                    id='terms'
-                    value={passwordType}
-                    onChange={(e) => isChecked(e)}
-                  />
-                  Show password
-              </span>
 
               <div className='relative my-6 w-full'>
                 <i className='fa-solid fa-lock absolute px-3.5 py-4 text-2xl'></i>
                 <TextField
-                className='border-2 border-black bg-[#F0F0F0] w-full px-12 py-4'
-                label='Retype Password'
-                variant='outlined'
-                id='confirmPassword'
-                type={passwordCheck}
-                onChange={e => setConfirmPassword(e.target.value)}
+                  className='border-2 border-black bg-[#F0F0F0] w-full px-12 py-4'
+                  label='Password'
+                  variant='outlined'
+                  id='password'
+                  type='password'
+                  value={values.password}
+                  onChange={handleChange}
+                  name='password'
                 />
               </div>
-              <span className=' block  w-full'>
-              <input className='mr-4'
-                    type='checkbox'
-                    name='terms'
-                    id='terms'
-                    value={passwordCheck}
-                    onChange={(e) => passChecked(e)}
-                  />
-                  Show password
-              </span>
+
+              <div className='relative my-6 w-full'>
+                <i className='fa-solid fa-lock absolute px-3.5 py-4 text-2xl'></i>
+                <TextField
+                  className='border-2 border-black bg-[#F0F0F0] w-full px-12 py-4'
+                  label='Retype Password'
+                  variant='outlined'
+                  id='confirmPassword'
+                  type='password'
+                  value={values.confirm_password}
+                  onChange={handleChange}
+                  name='confirm_password'
+                />
+              </div>
+
+              {/* Gender*/}
+              <div className='my-6 w-full'>
+                <select
+                  id=''
+                  className=' bg-[#F0F0F0] w-full px-5 py-4'
+                  value={values.gender}
+                  onChange={handleChange}
+                  name='gender'
+                >
+                  <option>Gender</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+              </div>
 
               <div className='relative my-6 w-full'>
                 <i className='fa-solid fa-phone absolute px-3.5 py-4 text-2xl'></i>
                 <TextField
-                className='border-2 border-black bg-[#F0F0F0] w-full px-12 py-4'
-                label='Phone Number'
-                variant='outlined'
-                id='phone'
-                type='number'
-                onChange={e => setPhone(e.target.value)}
+                  className='border-2 border-black bg-[#F0F0F0] w-full px-12 py-4'
+                  label='Phone Number'
+                  variant='outlined'
+                  id='phone'
+                  type='number'
+                  value={values.phone}
+                  onChange={handleChange}
+                  name='phone'
                 />
               </div>
 
-              {/* <div className='relative my-6 w-full'>
-                <i className='fa-solid fa-location-dot absolute px-3.5 py-4 text-2xl'></i>
-                <TextField
-                className='border-2 border-black bg-[#F0F0F0] w-full px-12 py-4'
-                label='Address'
-                variant='outlined'
-                id='address'
-                type='text'
-                onChange={e => setA}
-                />
-              </div> */}
-               <SelectGender  setGenderType={setGenderType}/>
-
-              <SelectAccount setAccountType={setAccountType}/>
-
-              <div className='flex justify-between mt-10 mb-3'>
+              <div className='w-full my-5'>
                 <div className='flex items-center gap-1'>
                   <input
                     type='checkbox'
                     name='terms'
                     id='terms'
-                    value={check}
-                    onChange={e => setCheck(e.target.value)}
+                    onChange={(e) => setTerms(e.target.checked)}
                   />
-                  <span className='text-sm '>
+                  <span className='text-sm'>
                     I accept all terms & conditions
                   </span>
                 </div>
               </div>
 
-           {/* <Link to='/account-type' className='flex justify-center align-middle my-10' size='lg'> */}
-           {loading ?
-            <Box sx={{ display: 'flex' }}>
-              <CircularProgress />
-            </Box>
-            :
-            <Button
-              text='Sign up'
-              type = "submit"
-              className='bg-[#003399] text-white  rounded-[10px] cursor-pointer' size="lg"
-            />
-            }
+              {/* <Link
+                to="/lendersDashboard"
+                className="flex justify-center align-middle my-10"
+              > */}
+              <Button
+                text={loading ? 'loading...' : 'Sign up'}
+                className='bg-[#003399] text-white  rounded-[10px] cursor-pointer '
+                size='lg'
+              />
+              {/* </Link> */}
             </form>
 
             <p className='font-bold text-xl text-center'>
@@ -308,7 +303,6 @@ const SignupPage = ({baseUrl}) => {
           </div>
         </div>
       </div>
-      
     </div>
   );
 };
