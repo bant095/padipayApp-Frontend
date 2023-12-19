@@ -38,7 +38,7 @@ const BorrowerSectionFour = () => {
                 {/* Card Image */}
                 <div className='card__container__img -mt-12'>
                   <img
-                    src='https://ik.imagekit.io/ffdguzut1/bg%20-%20graph.png'
+                    src='https://ik.imagekit.io/ffdguzut1/bg%20-%20graph3.png'
                     alt='Bg-Graph'
                     className='mb-[-50px] z-10'
                   />
@@ -47,13 +47,13 @@ const BorrowerSectionFour = () => {
                 <div className='mt-14'>
                   <div className=' px-4'>
                     <h3 className='text-blue-700 text-lg font-semibold'>
-                      Collins Frank
+                      Alfred Jimoh
                     </h3>
-                    <p className='text-gray-500 text-sm'>10% Interest Rate</p>
-                    <p className='text-xl'>₦500,000</p>
+                    <p className='text-gray-500 text-sm'>2% Interest Rate</p>
+                    <p className='text-xl'>₦10,000</p>
                   </div>
                 </div>
-                <Link to='/borrowersDashboard2'>
+                <Link to='/borrowersDashboard7'>
                   <button className='mt-5 mb-10 block mx-auto outline-none border-none rounded bg-gray-300 text-black text-center text-sm font-normal py-2 px-4'>
                     Match with Lender
                   </button>
@@ -74,13 +74,13 @@ const BorrowerSectionFour = () => {
                 <div className='mt-14'>
                   <div className='px-4'>
                     <h3 className='text-blue-700 text-lg font-semibold'>
-                      Collins Frank
+                     Adeniran Nimota
                     </h3>
-                    <p className='text-gray-500 text-sm'>10% Interest Rate</p>
-                    <p className='text-xl'>₦500,000</p>
+                    <p className='text-gray-500 text-sm'>5% Interest Rate</p>
+                    <p className='text-xl'>₦20,000</p>
                   </div>
                 </div>
-                <Link to='/lendersDashboard'>
+                <Link to='/borrowersDashboard7'>
                   <button className='mt-5 block mx-auto outline-none border-none rounded bg-gray-300 text-black text-center text-sm font-normal py-2 px-4'>
                     Match with Lender
                   </button>
@@ -88,19 +88,19 @@ const BorrowerSectionFour = () => {
               </div>
             </div>
             {/* bottom-card */}
-            <div className='bottom-card flex'>
+            {/* <div className='bottom-card flex'> */}
               {/* Card-3 */}
-              <div className='card__container p-4 rounded bg-white shadow'>
+              {/* <div className='card__container p-4 rounded bg-white shadow'> */}
                 {/* Card Image */}
-                <div className='card__container__img -mt-12'>
-                  <img
+                {/* <div className='card__container__img -mt-12'> */}
+                  {/* <img
                     src='https://ik.imagekit.io/ffdguzut1/bg%20-%20graph3.png'
                     alt='Bg-Graph'
                     className='mb-[-50px] z-10'
                   />
-                </div>
+                </div> */}
                 {/* Card Content */}
-                <div className='mt-14'>
+                {/* <div className='mt-14'>
                   <div className='px-4'>
                     <h3 className='text-blue-700 text-lg font-semibold'>
                       Ajoke Badmus
@@ -114,19 +114,19 @@ const BorrowerSectionFour = () => {
                     Match with Lender
                   </button>
                 </Link>
-              </div>
+              </div> */}
               {/* Card-4 */}
-              <div className='card__container p-4 rounded bg-white shadow'>
+              {/* <div className='card__container p-4 rounded bg-white shadow'> */}
                 {/* Card Image */}
-                <div className='card__container__img -mt-12'>
-                  <img
+                {/* <div className='card__container__img -mt-12'> */}
+                  {/* <img
                     src='https://ik.imagekit.io/ffdguzut1/bg%20-%20graph2.png'
                     alt='Bg-Graph'
                     className='mb-[-50px] z-10'
                   />
-                </div>
+                </div> */}
                 {/* Card Content */}
-                <div className='mt-14'>
+                {/* <div className='mt-14'>
                   <div className='px-4'>
                     <h3 className='text-blue-700 text-lg font-semibold'>
                       Ajoke Badmus
@@ -141,7 +141,7 @@ const BorrowerSectionFour = () => {
                   </button>
                 </Link>
               </div>
-            </div>
+            </div> */}
           </div>
           {/* settings section - column */}
           <SettingsSection />

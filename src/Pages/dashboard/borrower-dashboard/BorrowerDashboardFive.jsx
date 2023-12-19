@@ -42,7 +42,7 @@ const BorrowerSectionFive = () => {
             {/* loan */}
             <div className='font-semibold flex-col text-xl'>
               <h3 className=''>Outstanding Loan:</h3>
-              <h3 className='text-blue'>N2,775.00</h3>
+              <h3 className='text-blue'>N10,407.76</h3>
             </div>
 
             {/* btn */}
@@ -56,28 +56,28 @@ const BorrowerSectionFive = () => {
           <div className='secondsection my-12'>
             <div className='loan-box ml-10'>
               <div className='loan-box1 w-96 py-8 px-4 shadow-md mb-4'>
-                <p className='font-semibold text-2xl mb-5'>N 2,775.00</p>
+                <p className='font-semibold text-2xl mb-5'>N10,407.76</p>
                 <div className='lowersec text-lg'>
                   <div className='flex justify-between'>
-                    <h4 className='font-bold'>Principal</h4>
-                    <span className='font-bold text-blue-900'>N1,845.00</span>
+                    <h4 className='font-bold'>Loan Amount</h4>
+                    <span className='font-bold text-blue-900'>N10,000.00</span>
                   </div>
                   <div className='flex my-3 justify-between'>
-                    <h4 className='font-bold'>Overdue</h4>
-                    <span className='font-bold text-blue-900'>100 Days</span>
+                    <h4 className='font-bold'>Monthly Payment</h4>
+                    <span className='font-bold text-blue-900'>N5,203.88</span>
                   </div>
                   <div className='flex justify-between'>
-                    <h4 className='font-bold'>Interest</h4>
-                    <span className='font-bold text-blue-900'>N600</span>
+                    <h4 className='font-bold'>Total Interest</h4>
+                    <span className='font-bold text-blue-900'>N407.76</span>
                   </div>
                 </div>
               </div>
               <div className='flex justify-between loan-box1 w-96 shadow-lg px-4 py-4 my-3'>
                 <h2 className='font-semibold'>Minimum repayment</h2>
-                <h2 className='text-blue-900'>#900</h2>
+                <h2 className='text-blue-900'>N100</h2>
               </div>
               <div className='w-96 mt-12'>
-                <Link to='/dist/BD8.html'>
+                <Link to='/borrowersDashboard8'>
                   <Button
                     className=' bg-blue rounded-xl block mx-auto mt-8 text-white py-2'
                     text='Repay'
