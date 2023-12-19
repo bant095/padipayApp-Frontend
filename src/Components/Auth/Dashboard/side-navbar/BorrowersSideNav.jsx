@@ -18,7 +18,7 @@ const BorrowersSideNav = ({ user, loading }) => {
   // logout user
   const handleLogout = () => {
     localStorage.clear();
-    navigate('/login');
+    navigate('/');
   };
   return (
     <div className=' w-[28%] text-white bg-[#003399] font-primaryFont p-5'>
@@ -111,7 +111,7 @@ const BorrowersSideNav = ({ user, loading }) => {
 
       {/* dashboard */}
       <Link
-        to='/'
+        to='/borrowersDashboard2'
         className='flex gap-4 active items-center px-3 bg-[#4F4F52]  py-4 mt-5 rounded'
       >
         <svg
@@ -152,7 +152,7 @@ const BorrowersSideNav = ({ user, loading }) => {
       </Link>
 
       {/* Invest */}
-      <Link to='/' className='flex gap-4 active items-center px-3 py-5 rounded'>
+      <Link to='/borrowersDashboard5' className='flex gap-4 active items-center px-3 py-5 rounded'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
@@ -172,7 +172,7 @@ const BorrowersSideNav = ({ user, loading }) => {
       </Link>
 
       {/* Record */}
-      <Link to='/' className='flex gap-4 active items-center px-3 py-5 rounded'>
+      <Link to='/borrowersDashboard2' className='flex gap-4 active items-center px-3 py-5 rounded'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'

@@ -262,10 +262,23 @@ const PersonalDetails = () => {
                   onChange={handleChange}
                 >
                   <option value="default">Select Default</option>
-                  <option value="amac">AMAC</option>
-                  <option value="gwagwalada">Gwagwalada</option>
-                  <option value="kwali">Kwali</option>
-                  <option value="kuje">Kuje</option>
+                  <option value="abanorth">Aba North</option> 
+                  <option value="abasouth">Aba South</option>
+                  <option value="isialangwanorth">Isiala Ngwa North</option>
+                  <option value="isialangwasouth">Isiala Ngwa South</option>
+                  <option value="ukwawest">Ukwa West</option>
+                  <option value="ukwaeast">Ukwa East</option>
+                  <option value="obingwa">Obingwa</option>
+                  <option value="ikwuano">Ikwuano</option>
+                  <option value="bende">Bende</option>
+                  <option value="arochukwu">Arochukwu</option>
+                  <option value="ohafia">Ohafia</option>
+                  <option value="isuikwuato">Isuikwuato</option>
+                  <option value="umuahianorth">Umuahia North</option>
+                  <option value="umuahiasouth">Umuahia South</option>
+                  <option value="ugwunagbo">Ugwunagbo</option>
+                  <option value="osisioma">Osisioma</option>
+                  <option value="nnochi">Nnochi</option>
                 </select>
               </div>
             </div>

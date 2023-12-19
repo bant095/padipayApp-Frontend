@@ -18,7 +18,7 @@ const LendersSideNav = ({ user, loading }) => {
   // logout user
   const handleLogout = () => {
     localStorage.clear();
-    navigate('/login');
+    navigate('/');
   };
 
   return (
@@ -114,7 +114,7 @@ const LendersSideNav = ({ user, loading }) => {
 
       {/* dashboard */}
       <Link
-        to='/lendersDashboard'
+        to='/lendersDashboard1'
         className='flex gap-4 active items-center px-3 bg-[#4F4F52]  py-4 mt-5 rounded'
       >
         <svg
@@ -179,7 +179,7 @@ const LendersSideNav = ({ user, loading }) => {
 
       {/* Record */}
       <Link
-        to='/adminDashboard'
+        to='/lendersDashboard'
         className='flex gap-4 active items-center px-3 py-5 rounded'
       >
         <svg

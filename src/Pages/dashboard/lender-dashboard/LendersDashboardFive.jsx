@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LendersSideNav from '../../../Components/Auth/Dashboard/side-navbar/LendersSideNav';
 import LendersNavbarVerify from '../../../Components/Auth/Dashboard/header-navbar/LendersNavbarVerify';
 import FooterDashboard from '../../../Components/Auth/Dashboard/FooterDashboard';
@@ -47,11 +47,11 @@ const LendersDashboardFive = () => {
           {/* Borrowers Profile */}
           <div className='flex flex-col items-center pt-5'>
             <img
-              src='https://ik.imagekit.io/ffdguzut1/bg%20-%20graph4.png'
+              src='https://ik.imagekit.io/ffdguzut1/bg%20-%20graph.png'
               alt=''
               className='flex item-center justify-center w-20 h-20 rounded-full border-[2px] border-white'
             />
-            <p className='font-bold text-[24px] pt-2'>Collins Frank</p>
+            <p className='font-bold text-[24px] pt-2'>Chioma Ukoha</p>
           </div>
           <div className='flex items-center text-center mt-2 justify-evenly'>
             {/* box 1 */}
@@ -78,14 +78,15 @@ const LendersDashboardFive = () => {
 
           {/* Confirmation btn */}
           <div className='bg-[#1b006b] flex justify-between p-5 items-center mt-5 text-white'>
-            <Button>
+          <Link to='/lendersDashboard6' >
+          <Button>
               <div className='text-[24px] pr-1  text-[#0fe600]'>
                 <IoMdCheckmarkCircle />
               </div>
-
               <span className='text-white'>Accept this loan</span>
             </Button>
-            <Button>
+          </Link>           
+           <Button>
               <div className='text-[24px] pr-1  text-[#f50000]'>
                 <MdCancel />
               </div>
@@ -100,31 +101,31 @@ const LendersDashboardFive = () => {
             <h2 className='font-bold text-[20px] pb-2'>Loan Details</h2>
             {/* conatiner */}
             <div className='flex item-center pb-2 justify-between'>
-              <p>Principal</p>
+              <p>Loan Amount</p>
               <p>N10,000.00</p>
             </div>
             <div className='flex item-center pb-2 justify-between'>
-              <p>Interest(10%)</p>
-              <p>N2,000</p>
+              <p>Interest(2%)</p>
+              <p>N407.76</p>
             </div>
             <div className='flex item-center pb-2 justify-between'>
-              <p>Transaction Fee</p>
-              <p>N150.10</p>
+              <p>Administrative Charges</p>
+              <p>N10.00</p>
             </div>
             <div className='flex item-center pb-2 justify-between'>
-              <p>Platform Deductions</p>
-              <p>N500</p>
+              <p>Late Payment Charges</p>
+              <p>N0.00</p>
             </div>
             <div className='flex item-center pb-2 justify-between'>
               <p>Your Earnings</p>
-              <p>N1,500.78</p>
+              <p>N0.00</p>
             </div>
             <div className='flex item-center pb-2 justify-between'>
-              <p>Principal</p>
-              <p>N10,000.00</p>
+              <p>Total Loan Repayment</p>
+              <p>N10,407.76</p>
             </div>
             <div className='flex item-center pb-2 justify-between'>
-              <p>Tenor</p>
+              <p>Duration</p>
               <p>2 months</p>
             </div>
             <div className='flex item-center pb-2 justify-between'>
@@ -133,7 +134,7 @@ const LendersDashboardFive = () => {
             </div>
             <div className='flex item-center pb-2 justify-between'>
               <p>Application date</p>
-              <p>Nov 14 2023</p>
+              <p>December 19 2023</p>
             </div>
             <div className='flex item-center pb-2 justify-between'>
               <p>Purpose of loan</p>
@@ -144,7 +145,7 @@ const LendersDashboardFive = () => {
             <h2 className='font-bold text-[20px] pb-2'>Loan History</h2>
             <div className='flex item-center pb-2 justify-between'>
               <p>Paid Loan</p>
-              <p>2</p>
+              <p>0</p>
             </div>
             <div className='flex item-center pb-2 justify-between'>
               <p>Bad Loan</p>
@@ -152,23 +153,23 @@ const LendersDashboardFive = () => {
             </div>
             <div className='flex item-center pb-2 justify-between'>
               <p>Loan approved</p>
-              <p>2</p>
+              <p>0</p>
             </div>
             <div className='flex item-center pb-2 justify-between'>
               <p>Value of loan approved</p>
-              <p>N10,000.00</p>
+              <p>Nil</p>
             </div>
             <div className='flex item-center pb-2 justify-between'>
               <p>Date of last loan approved</p>
-              <p>Oct 20 2023</p>
+              <p>Nil</p>
             </div>
             <div className='flex item-center pb-2 justify-between'>
               <p>Total loan requests</p>
-              <p>7</p>
+              <p>0</p>
             </div>
             <div className='flex item-center pb-2 justify-between'>
               <p>Borrower since</p>
-              <p>Sept 10 2023</p>
+              <p>October 10 2023</p>
             </div>
           </div>
           <div className='bg-white rounded-md shadow-lg w-[95%] justify-center my-5 p-5 mx-5'>
